@@ -10,7 +10,7 @@
     <h1 class="home-title ms-4">Pokédex</h1>
 
     <div class="row justify-content-center">
-      <input class="searchbar col-10" type="text" placeholder="Pokemon zoeken">
+      <input v-model="search" class="searchbar col-10" type="text" placeholder="Pokemon zoeken">
     </div>
 
     <div class="row justify-content-center mt-3">
@@ -18,7 +18,7 @@
       <collectionCard :label="'Favorieten'" :count="'12'" class="green col-5 ms-1"/>
     </div>
  
-    <div v-for="pokemon in pokemons" :key="pokemon.id">
+    <div v-for="pokemon in filter" :key="pokemon.id">
       <div class="row justify-content-center">
         <pokemonCard :pokemon="pokemon" class="col-11"/>
       </div>
@@ -28,20 +28,35 @@
 </template>
 
 <script>
-import getPokemons from '@/api/get';
 import PokemonCard from '@/components/PokemonCard.vue';
 import CollectionCard from '@/components/CollectionCard.vue';
+import getPokemons from '@/api/get';
+import { watchEffect, ref, } from 'vue';
 
 export default {
   components: { PokemonCard, CollectionCard },
   name: "Home",
   setup() {
-    const {pokemons, load, error} = getPokemons()
+    const {pokemons, load} = getPokemons()
+    const search = ref('')
+    const filter = ref([])
+
     load();
 
-    return {pokemons, error}
+    filter.value = pokemons.value
+
+    watchEffect(() => {
+      document.search = search.value;
+      filter.value = pokemons.value.filter(pokemon => {
+        return pokemon.name.includes(search.value)
+      })
+    })
+
+
+    return {filter, search}
   }
 }
+
 </script>
 
 <style scoped>

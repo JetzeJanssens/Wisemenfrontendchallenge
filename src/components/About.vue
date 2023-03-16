@@ -36,10 +36,11 @@
         </tr>
     </table>
  </div>
-</template>∑
+</template>
 
 <script>
 import Categories from './Categories.vue'
+
 export default {
     components: {Categories},
     name: 'About',

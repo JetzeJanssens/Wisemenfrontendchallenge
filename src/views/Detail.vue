@@ -19,15 +19,25 @@
     <div>
       <about :pokemon="pokemon" />
     </div>
+
+    <div class="pt-4">
+      <stats :pokemon="pokemon" />
+    </div>
+
+    <div class="pt-4">
+      <moveset :pokemon="pokemon" />
+    </div>
   </div>
 </template>
 
 <script>
 import About from '@/components/About.vue';
+import Stats from '@/components/Stats.vue';
+import Moveset from '@/components/Moveset.vue';
 import getPokemon from '../api/getdetail';
 
 export default {
-components: { About },
+components: { About, Stats, Moveset },
 props: ['name'],
 setup(props) {
   console.log(props.name)
