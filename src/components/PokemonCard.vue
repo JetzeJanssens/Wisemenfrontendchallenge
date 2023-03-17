@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-4">
-          <h2 class="name">{{ pokemon.name }}</h2>
+          <h2 class="name">{{ capitalized(pokemon.name) }}</h2>
           <p class="number">Nr. {{ pokemon.id }}</p>
         </div>
 
@@ -33,8 +33,20 @@ import Categories from './Categories.vue'
 export default {
   components: {Categories},
   name: "PokemonCard",
-  props: ['pokemon']
+  props: ['pokemon'],
+
+
+  methods: {
+      capitalized(name) {
+        const capitalizedFirst = name[0].toUpperCase();
+        const rest = name.slice(1);
+
+        return capitalizedFirst + rest;
+      }
+    }
 }
+
+
 </script>
 
 <style>

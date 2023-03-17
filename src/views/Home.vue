@@ -6,6 +6,26 @@
 
     </div>
 
+    <div class="border rounded shadow bg-white m-3 p-2">
+      <div>
+        <input type="radio" id="nameAscending" name="sortOption" value="nameAscending" v-model="sortOption">
+        <label for="nameAscending">Alfabetisch oplopend</label>
+      </div>
+      <div>
+        <input type="radio" id="nameDescending" name="sortOption" value="nameDescending" v-model="sortOption">
+        <label for="nameDescending">Alfabetisch aflopend</label>
+      </div>
+      <div>
+        <input type="radio" id="idAscending" name="sortOption" value="idAscending" v-model="sortOption">
+        <label for="idAscending">Numeriek oplopend</label>
+      </div>
+      <div>
+        <input type="radio" id="idDescending" name="sortOption" value="idDescending" v-model="sortOption">
+        <label for="idDescending">Numeriek aflopend</label>
+      </div>
+      <button @click.prevent="sort">Search</button>
+    </div>
+
 
     <h1 class="home-title ms-4">Pokédex</h1>
 
@@ -14,46 +34,64 @@
     </div>
 
     <div class="row justify-content-center mt-3">
-      <collectionCard :label="'Mijn team'" :count="'4'" class="purple col-5 me-1"/> 
-      <collectionCard :label="'Favorieten'" :count="'12'" class="green col-5 ms-1"/>
+      <collectionCard :label="'Mijn team'" :count="'4'" class="purple col-5 me-1" />
+      <collectionCard :label="'Favorieten'" :count="'12'" class="green col-5 ms-1" />
     </div>
- 
-    <div v-for="pokemon in filter" :key="pokemon.id">
+
+
+    <div v-for="pokemon in sortedPokemons" :key="pokemon.id">
       <div class="row justify-content-center">
-        <pokemonCard :pokemon="pokemon" class="col-11"/>
+        <pokemonCard :pokemon="pokemon" class="col-11" />
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import PokemonCard from '@/components/PokemonCard.vue';
 import CollectionCard from '@/components/CollectionCard.vue';
 import getPokemons from '@/api/get';
-import { watchEffect, ref, } from 'vue';
+import { watchEffect, ref, computed, } from 'vue';
 
 export default {
   components: { PokemonCard, CollectionCard },
   name: "Home",
+
   setup() {
-    const {pokemons, load} = getPokemons()
+    const { pokemons, load } = getPokemons()
     const search = ref('')
     const filter = ref([])
 
     load();
 
     filter.value = pokemons.value
-
     watchEffect(() => {
       document.search = search.value;
       filter.value = pokemons.value.filter(pokemon => {
-        return pokemon.name.includes(search.value)
+        return pokemon.name.toLowerCase().includes(search.value.toLowerCase())
       })
     })
 
+    const sortOption = ref('');
 
-    return {filter, search}
+    const sortedPokemons = computed(() => {
+      const sorted = filter.value.slice().sort((a, b) => {
+        if (sortOption.value === 'nameAscending') {
+          return a.name.localeCompare(b.name);
+        } else if (sortOption.value === 'nameDescending') {
+          return b.name.localeCompare(a.name);
+        } else if (sortOption.value === 'idAscending') {
+          return a.id - b.id;
+        } else if (sortOption.value === 'idDescending') {
+          return b.id - a.id;
+        }
+      });
+      return sorted;
+    });
+
+
+    return { filter, search, sortOption, sortedPokemons };
+
   }
 }
 
@@ -63,6 +101,7 @@ export default {
 .backcolor {
   background-color: #f9f9f9;
 }
+
 .home-title {
   font-size: 34px;
   font-family: 'SF Display Pro';
@@ -75,11 +114,10 @@ export default {
   height: 36px;
 }
 
-.filter{
- height: 20px;
- width: auto;
- position: relative;
- right: 25px;
+.filter {
+  height: 20px;
+  width: auto;
+  position: relative;
+  right: 25px;
 }
-
 </style>

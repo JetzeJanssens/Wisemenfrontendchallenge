@@ -12,7 +12,7 @@ const routes = [
     path: '/:name',
     name: 'Detail',
     component: Detail,
-    props: true, //props aanzetten dat vue weet dat er een id is 
+    props: true,
   }
 ]
 

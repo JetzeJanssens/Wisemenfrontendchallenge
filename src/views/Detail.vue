@@ -3,7 +3,9 @@
 
     <div class="row justify-content-between topbar">
       <div class="col-10">
-         <p><i class="fa-solid fa-chevron-left"> <span class="back"> Terug</span> </i></p>
+        <router-link to="/">
+          <p><i class="fa-solid fa-chevron-left"> <span class="back"> Terug</span> </i></p>
+        </router-link>
       </div>
       <div class="col-2">
         <p><i class="fa-regular fa-heart"></i></p>
