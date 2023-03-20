@@ -1,36 +1,47 @@
 <template>
-  <div class="container backcolor">
+  <div class="backcolor">
+    <div class="container">
 
-    <div class="row justify-content-between topbar">
-      <div class="col-10">
-        <router-link to="/">
-          <p><i class="fa-solid fa-chevron-left"> <span class="back"> Terug</span> </i></p>
-        </router-link>
+      <div class="row justify-content-between topbar">
+        <div class="col-10">
+          <router-link to="/">
+            <p><i class="fa-solid fa-chevron-left"> <span class="back"> Terug</span> </i></p>
+          </router-link>
+        </div>
+        <div class="col-2">
+
+          <div class="heartbutton" @click="favoritePokemon">
+            <i class="fa-heart" :class="[isFavorite ? 'fa-solid red' : 'fa-regular']"></i>
+          </div>
+
+        </div>
       </div>
-      <div class="col-2">
 
-        <p class="heartbutton" @click="favoritePokemon"><i class="fa-heart" :class="{'fa-solid red': this.isFavorite, 'fa-regular': !this.isFavorite }"></i></p>
-        
+      <h1 class="pokemonname pt-2">{{ capitalized(pokemon.name) }}</h1>
+
+      <button class="btn btn-dark" @click="addToTeam">Toevoegen aan mijn team</button>
+
+
+      <div class="text-center">
+        <img class="foto"
+          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
       </div>
-    </div>
 
-    <h1 class="pokemonname pt-2">{{ capitalized(pokemon.name) }}</h1>
+      <div>
+        <about :pokemon="pokemon" />
+      </div>
 
-    <div class="text-center">
-      <img class="foto"
-        :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
-    </div>
+      <div class="pt-4">
+        <stats :pokemon="pokemon" />
+      </div>
 
-    <div>
-      <about :pokemon="pokemon" />
-    </div>
+      <div class="pt-4">
+        <moveset :pokemon="pokemon" />
+      </div>
 
-    <div class="pt-4">
-      <stats :pokemon="pokemon" />
-    </div>
 
-    <div class="pt-4">
-      <moveset :pokemon="pokemon" />
+
+
     </div>
   </div>
 </template>
@@ -40,30 +51,25 @@ import About from '@/components/About.vue';
 import Stats from '@/components/Stats.vue';
 import Moveset from '@/components/Moveset.vue';
 import getPokemon from '../api/getdetail';
-import Vue from 'vue'
-import VueCookies from 'vue-cookies'
-
 
 export default {
-  name: 'Datail',
+  name: 'Detail',
   components: { About, Stats, Moveset },
-
-  mounted() {
-    Vue.use(VueCookies)
-  },
 
   data() {
     return {
-      isFavorite: false
+      isFavorite: false,
+      isMyTeam: false,
+
     };
   },
 
-  props: ['name', 'pokemon'],
+  props: ['id', 'pokemon'],
   setup(props) {
-    console.log(props.name)
-    const { pokemon, error, load } = getPokemon(props.name);
+    const { pokemon, error, load } = getPokemon(props.id);
 
     load();
+    console.log(pokemon)
 
     return { pokemon, error }
   },
@@ -77,12 +83,10 @@ export default {
     },
 
     favoritePokemon() {
-      console.log(this.pokemon.id)
 
       let likedPokemons = JSON.parse(localStorage.getItem('likedPokemons') || '[]');
 
       let index = likedPokemons.indexOf(this.pokemon.id);
-      console.log(index)
       if (index === -1) {
         likedPokemons.push(this.pokemon.id)
         this.isFavorite = true
@@ -95,6 +99,21 @@ export default {
 
       localStorage.setItem('likedPokemons', JSON.stringify(likedPokemons));
 
+    },
+
+    addToTeam(){
+      let myTeam = JSON.parse(localStorage.getItem('myTeam') || '[]');
+
+      let index = myTeam.indexOf(this.pokemon.id);
+      if (index === -1) {
+        myTeam.push(this.pokemon.id)
+        this.isMyTeam = true
+      } else {
+        myTeam.splice(index, 1)
+        this.isMyTeam = false
+      }
+      
+      localStorage.setItem('myTeam', JSON.stringify(myTeam));
     }
   }
 }
@@ -138,8 +157,10 @@ i {
 }
 
 .red {
-  color: red;
+  color: rgb(255, 55, 55);
 }
 
+.addtoteam {
 
+}
 </style>  

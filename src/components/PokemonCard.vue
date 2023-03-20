@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{name: 'Detail', params: {name: pokemon.name}}">
+  <router-link :to="{name: 'Detail', params: {id: pokemon.id}}">
     <div class="pokecard">
       <div class="row">
         <div class="col-2 my-auto">

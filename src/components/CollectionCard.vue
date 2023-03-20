@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h2 class="collectioncard-title">{{ label }}</h2>
-    <p class="collection-count">{{ count }} pokemons</p>
+    <p class="collection-count">{{ count }} pokemon(s)</p>
   </div>
 </template>
 
