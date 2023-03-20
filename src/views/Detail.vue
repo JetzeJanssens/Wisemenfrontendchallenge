@@ -19,7 +19,7 @@
 
       <h1 class="pokemonname pt-2">{{ capitalized(pokemon.name) }}</h1>
 
-      <button class="btn btn-dark" @click="addToTeam">Toevoegen aan mijn team</button>
+      <button class="btn btn-dark" @click="addToTeam">{{ btntext }}</button>
 
 
       <div class="text-center">
@@ -60,6 +60,7 @@ export default {
     return {
       isFavorite: false,
       isMyTeam: false,
+      btntext: 'Toevoegen'
 
     };
   },
@@ -69,7 +70,6 @@ export default {
     const { pokemon, error, load } = getPokemon(props.id);
 
     load();
-    console.log(pokemon)
 
     return { pokemon, error }
   },
@@ -108,13 +108,35 @@ export default {
       if (index === -1) {
         myTeam.push(this.pokemon.id)
         this.isMyTeam = true
+        this.btntext = 'Verwijderen uit mijn team '
+
       } else {
         myTeam.splice(index, 1)
         this.isMyTeam = false
+        this.btntext = 'Toevoegen aan mijn team'
+
       }
       
       localStorage.setItem('myTeam', JSON.stringify(myTeam));
     }
+  },
+  mounted() {
+    const likedPokemons = JSON.parse(localStorage.getItem('likedPokemons'))
+    const index = likedPokemons.indexOf(this.pokemon.id)
+    if (index > -1){
+      this.isFavorite = true
+    } else {
+      this.isFavorite = false
+    }
+
+    const myTeam = JSON.parse(localStorage.getItem('myTeam'))
+    const indexteam = myTeam.indexOf(this.pokemon.id)
+    if (indexteam > -1) {
+      this.btntext = 'Verwijderen uit mijn team'
+    } else {
+      this.btntext = 'Toevoegen aan mijn team'
+    }
+
   }
 }
 </script>
@@ -160,7 +182,5 @@ i {
   color: rgb(255, 55, 55);
 }
 
-.addtoteam {
 
-}
 </style>  
