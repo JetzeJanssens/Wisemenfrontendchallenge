@@ -4,15 +4,17 @@
   <div class="frame py-1">
     <table class="m-4 col-12">
       <tr v-for="stat in pokemon.stats" :key="stat.id">
-        <td class="textgray col-2">{{ stat.stat.name }}</td>
-        <td class="col-1">{{ stat.base_stat }}</td>
-        <td class="col-6">
 
+        <td class="textgray col-2">{{ stat.stat.name }}</td>
+
+        <td class="col-1">{{ stat.base_stat }}</td>
+        
+        <td class="col-6">
           <div class="score-bar">
             <div class="score-fill" :class="{ green: stat.base_stat > 50, red: stat.base_stat <= 50 }" :style="{ width: stat.base_stat + '%' }"></div>
           </div>
-
         </td>
+
       </tr>
     </table>
   </div>

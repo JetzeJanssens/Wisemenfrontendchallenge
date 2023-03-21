@@ -28,7 +28,6 @@
             </div>
           </div>
 
-
           <h1 class="home-title ms-4">Pokédex</h1>
 
           <div class="row justify-content-center m-1">
@@ -90,7 +89,6 @@ export default {
     const filter = ref([])
 
     load();
-    console.log(pokemons)
 
     filter.value = pokemons.value
     watchEffect(() => {
@@ -101,7 +99,6 @@ export default {
     })
 
     const sortOption = ref('');
-
     const sortedPokemons = computed(() => {
       const sorted = filter.value.slice().sort((a, b) => {
         if (sortOption.value === 'nameAscending') {
@@ -117,31 +114,26 @@ export default {
       return sorted;
     });
 
-
     return { filter, search, sortOption, sortedPokemons };
-
   }
 }
-
 </script>
+
   
 <style scoped>
 .backcolor {
   background-color: #f9f9f9;
 }
-
 .home-title {
   font-size: 34px;
   font-family: 'SF Display Pro';
 }
-
 .searchbar {
   border: none;
   background-color: #EFF0F1;
   border-radius: 10px;
   height: 36px;
 }
-
 .filter {
   height: 20px;
   width: auto;

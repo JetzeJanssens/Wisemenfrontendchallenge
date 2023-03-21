@@ -7,7 +7,7 @@
         <tr>
             <td class="textgray">Type</td>
             <td v-for="type in pokemon.types" :key="type.id" class="col-5">
-                          <Categories :type="type"/>
+                <Categories :type="type"/>
             </td>
         </tr>
         <tr>

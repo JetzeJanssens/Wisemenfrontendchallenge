@@ -32,7 +32,6 @@ export default {
           return 'goldenrod';
           case 'ground':
           return 'sienna';
-
         default:
           return 'gray';
       }

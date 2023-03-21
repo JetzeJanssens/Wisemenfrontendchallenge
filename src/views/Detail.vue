@@ -2,24 +2,23 @@
   <div class="backcolor min-vh-100">
     <div class="container">
       <div class="row justify-content-between topbar">
+
         <div class="col-10">
           <router-link to="/">
             <p><i class="fa-solid fa-chevron-left"> <span class="back"> Terug</span> </i></p>
           </router-link>
         </div>
-        <div class="col-2">
 
+        <div class="col-2">
           <div class="heartbutton" @click="favoritePokemon">
             <i class="fa-heart" :class="[isFavorite ? 'fa-solid red' : 'fa-regular']"></i>
           </div>
-
         </div>
       </div>
 
       <h1 class="pokemonname pt-2">{{ capitalized(pokemon.name) }}</h1>
 
       <button class="btn btn-dark" @click="addToTeam">{{ btntext }}</button>
-
 
       <div class="text-center my-5">
         <img class="foto"
@@ -31,15 +30,14 @@
           <about :pokemon="pokemon" />
         </div>
 
-      <div class="pt-4 pt-lg-0 col-12 col-lg-6">
-        <stats :pokemon="pokemon" />
+        <div class="pt-4 pt-lg-0 col-12 col-lg-6">
+          <stats :pokemon="pokemon" />
+        </div>
       </div>
-    </div>
       <div class="pt-4">
         <moveset :pokemon="pokemon" />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -88,20 +86,18 @@ export default {
       if (index === -1) {
         likedPokemons.push(this.pokemon.id)
         this.isFavorite = true
-        console.log(this.isFavorite)
       } else {
         likedPokemons.splice(index, 1)
         this.isFavorite = false
-        console.log(this.isFavorite)
       }
 
       localStorage.setItem('likedPokemons', JSON.stringify(likedPokemons));
 
     },
 
+
     addToTeam() {
       let myTeam = JSON.parse(localStorage.getItem('myTeam') || '[]');
-
       let index = myTeam.indexOf(this.pokemon.id);
       if (index === -1) {
         myTeam.push(this.pokemon.id)
@@ -114,10 +110,10 @@ export default {
         this.btntext = 'Toevoegen aan mijn team'
 
       }
-
       localStorage.setItem('myTeam', JSON.stringify(myTeam));
     }
   },
+
   mounted() {
     const likedPokemons = JSON.parse(localStorage.getItem('likedPokemons'))
     const index = likedPokemons.indexOf(this.pokemon.id)
@@ -142,13 +138,10 @@ export default {
 <style scoped>
 i {
   color: #fff;
-
 }
-
 .topbar {
   color: #fff;
   font-size: 23px;
-
 }
 
 .back {
@@ -170,7 +163,6 @@ i {
   height: 250px;
 
 }
-
 
 .heartbutton {
   cursor: pointer;
