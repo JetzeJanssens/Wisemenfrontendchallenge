@@ -5,6 +5,22 @@
 </template>
 
 
+<script>
+export default {
+mounted() {
+
+    if(!localStorage.getItem('likedPokemons')) {
+      localStorage.setItem('likedPokemons', JSON.stringify([]))
+    }
+
+    if(!localStorage.getItem('myTeam')) {
+      localStorage.setItem('myTeam', JSON.stringify([]))
+    }
+  }
+}
+
+</script>
+
 <style>
 
 </style>

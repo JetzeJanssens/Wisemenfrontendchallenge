@@ -9,8 +9,8 @@ import List from '@/components/List.vue';
 
 export default {
   name: "Home",
-  components: {List}
-
+  components: {List},
+  
 }
 </script>
 
