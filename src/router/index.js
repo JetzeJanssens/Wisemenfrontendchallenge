@@ -4,6 +4,7 @@ import Detail from '../views/Detail.vue'
 import Favorites from '../views/Favorites.vue'
 import Team from '../views/Team.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -14,7 +15,7 @@ const routes = [
     path: '/:id',
     name: 'Detail',
     component: Detail,
-    props: true,
+    props: (route) => ({id: route.params.id || 1}),
   },
   {
     path: '/favorites',

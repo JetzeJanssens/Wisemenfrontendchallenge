@@ -1,7 +1,6 @@
 <template>
-  <div class="backcolor">
+  <div class="backcolor min-vh-100">
     <div class="container">
-
       <div class="row justify-content-between topbar">
         <div class="col-10">
           <router-link to="/">
@@ -22,27 +21,25 @@
       <button class="btn btn-dark" @click="addToTeam">{{ btntext }}</button>
 
 
-      <div class="text-center">
+      <div class="text-center my-5">
         <img class="foto"
-          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
+          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`" />
       </div>
 
-      <div>
-        <about :pokemon="pokemon" />
-      </div>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <about :pokemon="pokemon" />
+        </div>
 
-      <div class="pt-4">
+      <div class="pt-4 pt-lg-0 col-12 col-lg-6">
         <stats :pokemon="pokemon" />
       </div>
-
+    </div>
       <div class="pt-4">
         <moveset :pokemon="pokemon" />
       </div>
-
-
-
-
     </div>
+
   </div>
 </template>
 
@@ -51,10 +48,11 @@ import About from '@/components/About.vue';
 import Stats from '@/components/Stats.vue';
 import Moveset from '@/components/Moveset.vue';
 import getPokemon from '../api/getdetail';
+import List from '@/components/List.vue';
 
 export default {
   name: 'Detail',
-  components: { About, Stats, Moveset },
+  components: { About, Stats, Moveset, List },
 
   data() {
     return {
@@ -101,7 +99,7 @@ export default {
 
     },
 
-    addToTeam(){
+    addToTeam() {
       let myTeam = JSON.parse(localStorage.getItem('myTeam') || '[]');
 
       let index = myTeam.indexOf(this.pokemon.id);
@@ -116,14 +114,14 @@ export default {
         this.btntext = 'Toevoegen aan mijn team'
 
       }
-      
+
       localStorage.setItem('myTeam', JSON.stringify(myTeam));
     }
   },
   mounted() {
     const likedPokemons = JSON.parse(localStorage.getItem('likedPokemons'))
     const index = likedPokemons.indexOf(this.pokemon.id)
-    if (index > -1){
+    if (index > -1) {
       this.isFavorite = true
     } else {
       this.isFavorite = false
@@ -181,6 +179,4 @@ i {
 .red {
   color: rgb(255, 55, 55);
 }
-
-
 </style>  

@@ -1,7 +1,7 @@
 <template>
     <p class="text-white">MOVESET</p>
     <div class="frame py-1">
-    <p class="m-3">Vanaf de dag dat deze Pokémon wordt geboren, zit er een plantenzaadje op zijn rug. Het zaad wordt langzaam groter.</p>
+    <p class="m-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi animi voluptate iure. Voluptas ullam molestiae, quam aliquid repellendus voluptatum ad aliquam ex repudiandae.</p>
     
  </div>
 </template>

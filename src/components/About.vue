@@ -1,7 +1,7 @@
 <template>
   <p class="text-white">INFO</p>
   <div class="frame py-1">
-    <p class="m-3">Vanaf de dag dat deze Pokémon wordt geboren, zit er een plantenzaadje op zijn rug. Het zaad wordt langzaam groter.</p>
+    <p class="m-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi animi voluptate iure. Voluptas ullam molestiae, quam aliquid repellendus voluptatum ad aliquam ex repudiandae.</p>
     
     <table class="m-4">
         <tr>
@@ -16,11 +16,11 @@
         </tr>
         <tr>
             <td class="textgray">Hoogte</td>
-            <td>{{ pokemon.height }}</td>
+            <td>{{ pokemon.height/10 }} m</td>
         </tr>
         <tr>
             <td class="textgray">Gewicht</td>
-            <td>{{ pokemon.weight }} kg</td>
+            <td>{{ pokemon.weight/10 }} kg</td>
         </tr>
         <tr>
             <td class="textgray">Categorie</td>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td class="textgray">Geslacht</td>
-            <td>{{ pokemon.height }}</td>
+            <td>{{ pokemon.gender }}</td>
         </tr>
         <tr>
             <td class="textgray">Vaardigheden</td>

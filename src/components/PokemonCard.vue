@@ -2,8 +2,8 @@
   <router-link :to="{name: 'Detail', params: {id: pokemon.id}}">
     <div class="pokecard">
       <div class="row">
-        <div class="col-2 my-auto">
-          <img class="foto" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`"/>
+        <div class="col-2">
+          <img class="foto"  :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`" />
         </div>
 
         <div class="col-4">
@@ -43,6 +43,13 @@ export default {
 
         return capitalizedFirst + rest;
       }
+    },
+
+    showDetail(pokemon) {
+      this.$router.push({
+        name:'Detail',
+        params: {id: pokemon.id}
+      })
     }
 }
 
